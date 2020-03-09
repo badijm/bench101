@@ -1,5 +1,5 @@
-﻿using bench101.Pooling;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Engines;
 using BenchmarkDotNet.Order;
 using System;
 using System.Buffers;
@@ -7,109 +7,42 @@ using System.Linq;
 
 namespace bench101
 {
-    public enum Gender
-    {
-        Male = 1, Female = 2
-    }
-    [RyuJitX64Job]
-    [RankColumn]
-    [MemoryDiagnoser]
-    [CoreJob]
-    [Orderer(SummaryOrderPolicy.FastestToSlowest)]
-    public class PoolingBenchmark
-    {
-        private static readonly DataClass[] _items = new DataClass[]
-        {
-            new DataClass { Age = 12, Description = "Random" },
-            new DataClass { Age = 13, Description = "Random2" },
-            new DataClass { Age = 14, Description = "Random3" },
-            new DataClass { Age = 15, Description = "Random3" },
+	[GcForce(false)]
+	[RankColumn]
+	[MemoryDiagnoser]
+	public class PoolingBenchmark
+	{
+		[Params((int)1E+2, // 100 bytes
+				(int)1E+3, // 1 000 bytes = 1 KB
+				(int)1E+4, // 10 000 bytes = 10 KB
+				(int)1E+5, // 100 000 bytes = 100 KB
+				(int)1E+6, // 1 000 000 bytes = 1 MB
+				(int)1E+7)] // 10 000 000 bytes = 10 MB
+		public int SizeInBytes { get; set; }
+		private ArrayPool<byte> sizeAwarePool;
 
-            new DataClass { Age = 12, Description = "Random" },
-            new DataClass { Age = 13, Description = "Random2" },
-            new DataClass { Age = 14, Description = "Random3" },
-            new DataClass { Age = 15, Description = "Random3" },
+		[GlobalSetup]
+		public void GlobalSetup()
+			=> sizeAwarePool = ArrayPool<byte>.Create(SizeInBytes + 1, 10);
 
-            new DataClass { Age = 12, Description = "Random" },
-            new DataClass { Age = 13, Description = "Random2" },
-            new DataClass { Age = 14, Description = "Random3" },
-            new DataClass { Age = 15, Description = "Random3" },
+		[Benchmark]
+		public void Allocate()
+		=> DeadCodeEliminationHelper.KeepAliveWithoutBoxing(new byte[SizeInBytes]);
 
-            new DataClass { Age = 12, Description = "Random" },
-            new DataClass { Age = 13, Description = "Random2" },
-            new DataClass { Age = 14, Description = "Random3" },
-            new DataClass { Age = 15, Description = "Random3" },
-        };
-        private int _itemsCount = 16;
+		[Benchmark]
+		public void RentAndReturn_Shared()
+		{
+			var pool = ArrayPool<byte>.Shared;
+			byte[] array = pool.Rent(SizeInBytes);
+			pool.Return(array);
+		}
 
-        [Benchmark(Baseline = true)]
-        public double VersionObjectArray()
-        {
-            DataClass[] data = new DataClass[_itemsCount];
-            for (int i = 0; i < _itemsCount; ++i)
-            {
-                data[i] = new DataClass
-                {
-                    Age = _items[i].Age,
-                    Gender = Helper(_items[i].Description)
-                                 ? Gender.Female : Gender.Male
-                };
-            }
-            return ProcessBatch(data);
-        }
-
-        [Benchmark]
-        public double VersionClassArrayPool()
-        {
-            DataClass[] data = ArrayPool<DataClass>.Shared.Rent(_itemsCount);
-            for (int i = 0; i < _itemsCount; ++i)
-            {
-                data[i] = new DataClass();
-                data[i].Age = _items[i].Age;
-                data[i].Gender = Helper(_items[i].Description)
-                                 ? Gender.Female : Gender.Male;
-            }
-            double result = ProcessBatch(data);
-            ArrayPool<DataClass>.Shared.Return(data);
-            return result;
-        }
-
-        [Benchmark]
-        public unsafe double VersionStructStackalloc()
-        {
-            Span<DataStruct> data = stackalloc DataStruct[_itemsCount];
-            for (int i = 0; i < _items.Count(); ++i)
-            {
-                data[i].Age = _items[i].Age;
-                data[i].Gender = Helper(_items[i].Description)
-                                 ? Gender.Female : Gender.Male;
-            }
-            return ProcessBatch(data);
-        }
-
-        private bool Helper(string description)
-        {
-            return description == "Female";
-        }
-
-        private double ProcessBatch(DataClass[] data)
-        {
-            double result = default;
-            foreach (var item in data)
-            {
-                result += item.Age;
-            }
-            return result;
-        }
-
-        private double ProcessBatch(Span<DataStruct> data)
-        {
-            double result = default;
-            foreach (var item in data)
-            {
-                result += item.Age;
-            }
-            return result;
-        }
-    }
+		[Benchmark]
+		public void RentAndReturn_Aware()
+		{
+			var pool = sizeAwarePool;
+			byte[] array = pool.Rent(SizeInBytes);
+			pool.Return(array);
+		}
+	}
 }

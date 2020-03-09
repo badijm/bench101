@@ -9,3 +9,13 @@ C:\Users\maxkp\source\repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.
 C:\Users\maxkp\source\repos\bench101\bench.core\bin\Release\netcoreapp2.1\bench.core.pdb
 C:\Users\maxkp\source\repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.dll
 C:\Users\maxkp\source\repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.pdb
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\bin\Release\netcoreapp2.1\bench.core.deps.json
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\bin\Release\netcoreapp2.1\bench.core.runtimeconfig.json
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\bin\Release\netcoreapp2.1\bench.core.runtimeconfig.dev.json
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\bin\Release\netcoreapp2.1\bench.core.dll
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\bin\Release\netcoreapp2.1\bench.core.pdb
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.csprojAssemblyReference.cache
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.AssemblyInfoInputs.cache
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.AssemblyInfo.cs
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.dll
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.pdb

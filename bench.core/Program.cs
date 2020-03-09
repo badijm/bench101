@@ -6,11 +6,8 @@ using System;
 
 namespace bench.core
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            var summary = BenchmarkRunner.Run<SIMDBenchmark>();
-        }
-    }
+	class Program
+	{
+		static void Main(string[] args) => BenchmarkRunner.Run<SIMDBenchmark>();
+	}
 }
