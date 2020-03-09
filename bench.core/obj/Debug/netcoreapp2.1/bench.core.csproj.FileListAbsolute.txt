@@ -1,0 +1,3 @@
+C:\Users\maxkp\source\repos\bench101\bench.core\obj\Debug\netcoreapp2.1\bench.core.csproj.CoreCompileInputs.cache
+C:\Users\maxkp\source\repos\bench101\bench.core\obj\Debug\netcoreapp2.1\bench.core.AssemblyInfoInputs.cache
+C:\Users\maxkp\source\repos\bench101\bench.core\obj\Debug\netcoreapp2.1\bench.core.AssemblyInfo.cs
