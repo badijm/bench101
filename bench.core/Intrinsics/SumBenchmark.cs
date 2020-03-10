@@ -11,7 +11,7 @@ namespace bench.core.SIMD
     [RankColumn]
     [SimpleJob(RuntimeMoniker.NetCoreApp31)]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
-    public class SIMDBenchmark
+    public class SumBenchmark
     {
         public static int[] Data = GetRandomArray();
 
@@ -66,32 +66,8 @@ namespace bench.core.SIMD
         [Benchmark]
         public int SumVectorT()
         {
-            int result = 0;
             var source = Data.AsSpan();
-
-            Vector<int> vresult = Vector<int>.Zero;
-
-            int i = 0;
-            int lastBlockIndex = source.Length - (source.Length % Vector<int>.Count);
-
-            while (i < lastBlockIndex)
-            {
-                vresult += new Vector<int>(source.Slice(i));
-                i += Vector<int>.Count;
-            }
-
-            for (int n = 0; n < Vector<int>.Count; n++)
-            {
-                result += vresult[n];
-            }
-
-            while (i < source.Length)
-            {
-                result += source[i];
-                i += 1;
-            }
-
-            return result;
+            return SumVectorT(source);
         }
 
         [Benchmark]
@@ -99,22 +75,13 @@ namespace bench.core.SIMD
         {
             var source = Data.AsSpan();
 
-            if (Sse2.IsSupported)
-            {
-                return SumVectorizedSse2(source);
-            }
-            else
-            {
-                return SumVectorT(source);
-            }
+            return Sse2.IsSupported ? SumVectorizedSse2(source) : SumVectorT(source);
         }
 
         private int SumVectorT(ReadOnlySpan<int> source)
         {
             int result = 0;
-
-            Vector<int> vresult = Vector<int>.Zero;
-
+            var vresult = Vector<int>.Zero;
             int i = 0;
             int lastBlockIndex = source.Length - (source.Length % Vector<int>.Count);
 
