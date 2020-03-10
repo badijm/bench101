@@ -15,23 +15,21 @@ namespace bench.core
         {
             if (!args.Any())
             {
-                var projectRoot = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent;
-                var directories = Directory.EnumerateDirectories(projectRoot.FullName)
-                    .Where(x => !x.Contains("bin"))
-                    .Where(x => !x.Contains("obj"))
-                    .Select((directory, number) => $"{number}\t{directory}");
+                var directories = Directory.EnumerateDirectories(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName)
+                    .Where(x => !x.Contains("bin") || !x.Contains("obj"))
+                    .Select((directory, number) => $"{++number}\t{directory}");
 
-                Console.WriteLine($"\nSpecify test name\n Choose from following folders in project {string.Join("\n", directories)}");
+                Console.WriteLine($"\nSpecify test name\n Choose from following folders in project:\n {string.Join("\n", directories)}");
                 return;
             }
-            if (args[0] == nameof(Pooling))
-                BenchmarkRunner.Run<Pooling>();
-
-            else if (args[0] == nameof(Builder))
-                BenchmarkRunner.Run<Builder>();
-
-            else if (args[0] == nameof(SumBenchmark))
-                BenchmarkRunner.Run<SumBenchmark>();
+            switch (args[0])
+            {
+                case var arg when arg == nameof(Pooling): BenchmarkRunner.Run<Pooling>(); return;
+                case var arg when arg == nameof(Builder): BenchmarkRunner.Run<Builder>(); return;
+                case var arg when arg == nameof(SumBenchmark): BenchmarkRunner.Run<SumBenchmark>(); return;
+                default:
+                    Console.WriteLine($"\nSpecify valid test name"); return;
+            }
         }
     }
 }
