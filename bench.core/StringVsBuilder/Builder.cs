@@ -9,7 +9,7 @@ namespace bench.core
     [RyuJitX64Job]
     [MemoryDiagnoser]
     [SimpleJob(RuntimeMoniker.NetCoreApp31)]
-    public class StringBuilderBenchmark
+    public class Builder
     {
 
         [Params(1000)]

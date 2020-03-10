@@ -10,7 +10,7 @@ namespace bench101
 	[GcForce(false)]
 	[RankColumn]
 	[MemoryDiagnoser]
-	public class PoolingBenchmark
+	public class Pooling
 	{
 		[Params((int)1E+2, // 100 bytes
 				(int)1E+3, // 1 000 bytes = 1 KB
@@ -19,11 +19,11 @@ namespace bench101
 				(int)1E+6, // 1 000 000 bytes = 1 MB
 				(int)1E+7)] // 10 000 000 bytes = 10 MB
 		public int SizeInBytes { get; set; }
-		private ArrayPool<byte> sizeAwarePool;
+		private ArrayPool<byte> fixedSizePool;
 
 		[GlobalSetup]
 		public void GlobalSetup()
-			=> sizeAwarePool = ArrayPool<byte>.Create(SizeInBytes + 1, 10);
+			=> fixedSizePool = ArrayPool<byte>.Create(SizeInBytes + 1, 10);
 
 		[Benchmark]
 		public void Allocate()
@@ -40,7 +40,7 @@ namespace bench101
 		[Benchmark]
 		public void RentAndReturn_Aware()
 		{
-			var pool = sizeAwarePool;
+			var pool = fixedSizePool;
 			byte[] array = pool.Rent(SizeInBytes);
 			pool.Return(array);
 		}

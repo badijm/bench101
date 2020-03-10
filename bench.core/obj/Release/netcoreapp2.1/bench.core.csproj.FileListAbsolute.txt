@@ -19,3 +19,4 @@ C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1
 C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.AssemblyInfo.cs
 C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.dll
 C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.pdb
+C:\Users\Maksym.Badiy\Source\Repos\bench101\bench.core\obj\Release\netcoreapp2.1\bench.core.csproj.CoreCompileInputs.cache

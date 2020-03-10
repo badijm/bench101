@@ -9,11 +9,7 @@ namespace bench.core.Span
     {
         public string GetLastName(string fullName)
         {
-            var names = fullName.Split(" ");
-
-            var lastName = names.LastOrDefault();
-
-            return lastName ?? string.Empty;
+            return fullName.Split(" ").LastOrDefault() ?? string.Empty;
         }
 
         public string GetLastNameUsingSubstring(string fullName)
