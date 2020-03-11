@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
-using System.Text;
 
-namespace bench.core.Others
+namespace bench.core.Intrinsics
 {
     public static class SpanIndexOf
     {
@@ -40,17 +38,17 @@ namespace bench.core.Others
                 if (Avx2.IsSupported)
                 {
                     // Load '1' item into a 128 bit vector
-                    Vector128<int> itemScaler = Avx2.LoadScalarVector128(&item);
+                    Vector128<int> itemScaler = Sse2.LoadScalarVector128(&item);
 
                     // Copy that first item into the other 7 slots of a 256 bit vector, this means
                     // we now have a vector that is holding 8 times the value 'item'
                     Vector256<int> itemVector = Avx2.BroadcastScalarToVector256(itemScaler);
 
                     // Loop through the span 8 elements at a time (256 bit / 32 bit = 8)
-                    for (; (pointer + 8) < endPointer; pointer += 8)
+                    for (; pointer + 8 < endPointer; pointer += 8)
                     {
                         // Load 8 elements from the span
-                        Vector256<int> elements = Avx2.LoadVector256(pointer);
+                        Vector256<int> elements = Avx.LoadVector256(pointer);
 
                         // Compare those 8 elements with our item. This will give us 8 values of
                         // 'FFFF' or '0000' (32 bits of either 1 or 0) in a 256 bit vector
@@ -71,31 +69,31 @@ namespace bench.core.Others
                         // we can construct a jump table for it.
                         switch (mask)
                         {
-                            case (int)0x0000000F: // At element 0
+                            case 0x0000000F: // At element 0
                                 return (int)(pointer - startPointer);
 
-                            case (int)0x000000F0: // At element 1
+                            case 0x000000F0: // At element 1
                                 return (int)(pointer + 1 - startPointer);
 
-                            case (int)0x00000F00: // At element 2
+                            case 0x00000F00: // At element 2
                                 return (int)(pointer + 2 - startPointer);
 
-                            case (int)0x0000F000: // At element 3
+                            case 0x0000F000: // At element 3
                                 return (int)(pointer + 3 - startPointer);
 
-                            case (int)0x000F0000: // At element 4
+                            case 0x000F0000: // At element 4
                                 return (int)(pointer + 4 - startPointer);
 
-                            case (int)0x00F00000: // At element 5
+                            case 0x00F00000: // At element 5
                                 return (int)(pointer + 5 - startPointer);
 
-                            case (int)0x0F000000: // At element 6
+                            case 0x0F000000: // At element 6
                                 return (int)(pointer + 6 - startPointer);
 
                             case unchecked((int)0xF0000000): // At element 7
                                 return (int)(pointer + 7 - startPointer);
 
-                            case (int)0x00000000: // Not found
+                            case 0x00000000: // Not found
                                 continue;
 
                             default:

@@ -1,11 +1,8 @@
-﻿using bench.core.Others;
-using bench.core.SIMD;
-using bench.core.Span;
-using bench101;
-using BenchmarkDotNet.Running;
-using System;
-using System.IO;
+﻿using System;
 using System.Linq;
+using System.Reflection;
+using bench.core.Other;
+using BenchmarkDotNet.Running;
 
 namespace bench.core
 {
@@ -15,21 +12,17 @@ namespace bench.core
         {
             if (!args.Any())
             {
-                var directories = Directory.EnumerateDirectories(Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName)
-                    .Where(x => !x.Contains("bin") || !x.Contains("obj"))
-                    .Select((directory, number) => $"{++number}\t{directory}");
-
-                Console.WriteLine($"\nSpecify test name\n Choose from following folders in project:\n {string.Join("\n", directories)}");
+                BenchmarkRunner.Run<ListMemoryBenchmark>();
                 return;
             }
-            switch (args[0])
+            var availableBenchmarks = Assembly.GetExecutingAssembly().GetExportedTypes().Where(x => x.Name.EndsWith("Benchmark"));
+            var benchmarkToRun = availableBenchmarks.FirstOrDefault(x => x.Name == args.First());
+            if (benchmarkToRun == null)
             {
-                case var arg when arg == nameof(Pooling): BenchmarkRunner.Run<Pooling>(); return;
-                case var arg when arg == nameof(Builder): BenchmarkRunner.Run<Builder>(); return;
-                case var arg when arg == nameof(SumBenchmark): BenchmarkRunner.Run<SumBenchmark>(); return;
-                default:
-                    Console.WriteLine($"\nSpecify valid test name"); return;
+                Console.WriteLine($"\nSpecify valid test name");
+                return;
             }
+            BenchmarkRunner.Run(benchmarkToRun);
         }
     }
 }

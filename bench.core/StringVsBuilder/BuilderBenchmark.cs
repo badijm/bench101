@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Jobs;
 
-namespace bench.core
+namespace bench.core.StringVsBuilder
 {
-    [RyuJitX64Job]
     [MemoryDiagnoser]
-    [SimpleJob(RuntimeMoniker.NetCoreApp31)]
-    public class Builder
+    public class BuilderBenchmark
     {
 
         [Params(1000)]

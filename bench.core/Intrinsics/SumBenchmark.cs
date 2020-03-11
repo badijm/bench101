@@ -6,7 +6,7 @@ using System.Runtime.Intrinsics.X86;
 using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Jobs;
 using BenchmarkDotNet.Order;
-namespace bench.core.SIMD
+namespace bench.core.Intrinsics
 {
     [RankColumn]
     [SimpleJob(RuntimeMoniker.NetCoreApp31)]
@@ -38,7 +38,7 @@ namespace bench.core.SIMD
             int result = 0;
 
             int i = 0;
-            int lastBlockIndex = source.Length - (source.Length % 4);
+            int lastBlockIndex = source.Length - source.Length % 4;
 
             // Pin source so we can elide the bounds checks
             fixed (int* pSource = source)
@@ -83,7 +83,7 @@ namespace bench.core.SIMD
             int result = 0;
             var vresult = Vector<int>.Zero;
             int i = 0;
-            int lastBlockIndex = source.Length - (source.Length % Vector<int>.Count);
+            int lastBlockIndex = source.Length - source.Length % Vector<int>.Count;
 
             while (i < lastBlockIndex)
             {
@@ -114,7 +114,7 @@ namespace bench.core.SIMD
                 Vector128<int> vresult = Vector128<int>.Zero;
 
                 int i = 0;
-                int lastBlockIndex = source.Length - (source.Length % 4);
+                int lastBlockIndex = source.Length - source.Length % 4;
 
                 while (i < lastBlockIndex)
                 {

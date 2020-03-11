@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using BenchmarkDotNet.Attributes;
+﻿using BenchmarkDotNet.Attributes;
 
-namespace bench.core.Others
+namespace bench.core.Intrinsics
 {
     [RyuJitX64Job]
     [DisassemblyDiagnoser]

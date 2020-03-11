@@ -1,16 +1,13 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System.Buffers;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Engines;
-using BenchmarkDotNet.Order;
-using System;
-using System.Buffers;
-using System.Linq;
 
 namespace bench101
 {
 	[GcForce(false)]
 	[RankColumn]
 	[MemoryDiagnoser]
-	public class Pooling
+	public class PoolingBenchmark
 	{
 		[Params((int)1E+2, // 100 bytes
 				(int)1E+3, // 1 000 bytes = 1 KB
