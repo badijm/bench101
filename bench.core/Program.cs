@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Reflection;
+using bench.core.Intrinsics;
 using bench.core.Other;
 using BenchmarkDotNet.Running;
 
@@ -12,7 +13,7 @@ namespace bench.core
         {
             if (!args.Any())
             {
-                BenchmarkRunner.Run<ListMemoryBenchmark>();
+                Console.WriteLine($"\nSpecify valid test name");
                 return;
             }
             var availableBenchmarks = Assembly.GetExecutingAssembly().GetExportedTypes().Where(x => x.Name.EndsWith("Benchmark"));

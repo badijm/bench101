@@ -2,7 +2,7 @@
 using System.Text;
 using BenchmarkDotNet.Attributes;
 
-namespace bench.core.StringVsBuilder
+namespace bench.core.StringConcat
 {
     [MemoryDiagnoser]
     public class BuilderBenchmark

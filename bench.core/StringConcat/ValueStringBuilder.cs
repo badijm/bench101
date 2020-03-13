@@ -2,7 +2,7 @@
 using System.Buffers;
 using System.Diagnostics;
 
-namespace bench.core.StringVsBuilder
+namespace bench.core.StringConcat
 {
     public ref struct ValueStringBuilder
     {

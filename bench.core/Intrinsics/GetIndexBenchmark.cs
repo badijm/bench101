@@ -2,8 +2,6 @@
 
 namespace bench.core.Intrinsics
 {
-    [RyuJitX64Job]
-    [DisassemblyDiagnoser]
     public class GetIndexBenchmark
     {
         private const int ElementCount = 100_000;
