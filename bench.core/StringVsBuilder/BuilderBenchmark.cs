@@ -7,12 +7,11 @@ namespace bench.core.StringVsBuilder
     [MemoryDiagnoser]
     public class BuilderBenchmark
     {
-
         [Params(1000)]
         public int Count { get; set; }
 
         [Benchmark]
-        public string GetConcatenated()
+        public string UseString()
         {
             Random rand = new Random();
             var result = "<Customers>";
@@ -38,7 +37,7 @@ namespace bench.core.StringVsBuilder
         }
 
         [Benchmark]
-        public string GetBuilder()
+        public string UseStringBuilder()
         {
             Random rand = new Random();
             var sb = new StringBuilder("<Customers>");
@@ -61,6 +60,32 @@ namespace bench.core.StringVsBuilder
             }
             sb.Append("</Customers>");
             return sb.ToString();
+        }
+
+        [Benchmark]
+        public string UseValueStringBuilder()
+        {
+            Span<char> initialBuffer = stackalloc char[32];
+            using var builder = new ValueStringBuilder(initialBuffer);
+            for (int i = 0; i <= Count; i++)
+            {
+                builder.Append("<Customer Id=\"");
+                builder.Append(i.ToString());
+                builder.Append("\" lastUpdateDate=\"");
+                builder.Append(DateTime.Now.ToString());
+                builder.Append("\" branchId=\"");
+                builder.Append(i.ToString());
+                builder.Append("\" firstName=\"");
+                builder.Append(i.ToString());
+                builder.Append("\" lastName=\"");
+                builder.Append("A customer with the Id: ");
+                builder.Append(i.ToString());
+                builder.Append("\" ranking=\"");
+                builder.Append("100");
+                builder.Append("\"/>");
+            }
+            builder.Append("</Customers>");
+            return builder.ToString();
         }
     }
 }

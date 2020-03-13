@@ -2,7 +2,7 @@
   "profiles": {
     "bench.core": {
       "commandName": "Project",
-      "commandLineArgs": "ListMemoryBenchmark"
+      "commandLineArgs": "BuilderBenchmark"
     }
   }
 }

@@ -40,7 +40,8 @@ namespace bench.core.Intrinsics
             int i = 0;
             int lastBlockIndex = source.Length - source.Length % 4;
 
-            // Pin source so we can elide the bounds checks
+            // The fixed statement prevents the garbage collector from relocating a movable variable.
+            //https://docs.microsoft.com/ru-ru/dotnet/csharp/language-reference/keywords/fixed-statement
             fixed (int* pSource = source)
             {
                 while (i < lastBlockIndex)
