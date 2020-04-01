@@ -6,14 +6,14 @@ namespace bench.core.Other
     [MemoryDiagnoser]
     public class ListMemoryBenchmark
     {
-        [Params(100, 1000)]
-        public int N;
+        [Params(100, 1000, 10_000)]
+        public int size;
 
-        [Benchmark]
+        [Benchmark(Baseline = true)]
         public void Array()
         {
-            var array = new int[N];
-            for (int i = 0; i < N; i++)
+            var array = new int[size];
+            for (int i = 0; i < size; i++)
             {
                 array[i] = i;
             }
@@ -22,8 +22,8 @@ namespace bench.core.Other
         [Benchmark]
         public void ListFixedSize()
         {
-            var list = new List<int>(N);
-            for (int i = 0; i < N; i++)
+            var list = new List<int>(size);
+            for (int i = 0; i < size; i++)
             {
                 list.Add(i);
             }
@@ -33,7 +33,7 @@ namespace bench.core.Other
         public void ListDynamicSize()
         {
             var list = new List<int>();
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < size; i++)
             {
                 list.Add(i);
             }
@@ -43,7 +43,7 @@ namespace bench.core.Other
         public void HashSet()
         {
             var set = new HashSet<int>();
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < size; i++)
             {
                 set.Add(i);
             }
@@ -53,7 +53,7 @@ namespace bench.core.Other
         public void Dictionary()
         {
             var dic = new Dictionary<int, int>();
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < size; i++)
             {
                 dic.Add(i, i);
             }
