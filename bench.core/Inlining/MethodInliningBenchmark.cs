@@ -1,4 +1,6 @@
-﻿namespace bench.core
+﻿using BenchmarkDotNet.Attributes;
+
+namespace bench.core
 {
     //VirtualSum can’t be inlined because it’s marked as a virtual method
     public class MethodInliningBenchmark
