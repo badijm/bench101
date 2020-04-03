@@ -6,7 +6,7 @@ namespace bench.core.Span
     [RankColumn]
     [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     [MemoryDiagnoser]
-    public class NameParserBenchmarks
+    public class NameParserBenchmark
     {
         private const string FullName = "Steve J Gordon";
         private static readonly NameParser Parser = new NameParser();
