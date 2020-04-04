@@ -1,4 +1,6 @@
-﻿using BenchmarkDotNet.Attributes;
+﻿using System;
+using System.Linq;
+using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Order;
 
 namespace bench.core.Span
@@ -9,24 +11,50 @@ namespace bench.core.Span
     public class NameParserBenchmark
     {
         private const string FullName = "Steve J Gordon";
-        private static readonly NameParser Parser = new NameParser();
 
         [Benchmark(Baseline = true)]
         public void GetLastName()
         {
-            Parser.GetLastName(FullName);
+            NameParser.GetLastName(FullName);
         }
 
         [Benchmark]
         public void GetLastNameUsingSubstring()
         {
-            Parser.GetLastNameUsingSubstring(FullName);
+            NameParser.GetLastNameUsingSubstring(FullName);
         }
 
         [Benchmark]
         public void GetLastNameWithSpan()
         {
-            Parser.GetLastNameWithSpan(FullName);
+            NameParser.GetLastNameWithSpan(FullName);
         }
     }
+
+    public static class NameParser
+    {
+        public static string GetLastName(string fullName)
+        {
+            return fullName.Split(" ").LastOrDefault() ?? string.Empty;
+        }
+
+        public static string GetLastNameUsingSubstring(string fullName)
+        {
+            var lastSpaceIndex = fullName.LastIndexOf(" ", StringComparison.Ordinal);
+
+            return lastSpaceIndex == -1
+                ? string.Empty
+                : fullName.Substring(lastSpaceIndex + 1);
+        }
+
+        public static ReadOnlySpan<char> GetLastNameWithSpan(ReadOnlySpan<char> fullName)
+        {
+            var lastSpaceIndex = fullName.LastIndexOf(' ');
+
+            return lastSpaceIndex == -1
+                ? ReadOnlySpan<char>.Empty
+                : fullName.Slice(lastSpaceIndex + 1);
+        }
+    }
+
 }
