@@ -6,11 +6,10 @@ using BenchmarkDotNet.Order;
 namespace bench.core.Span
 {
     [RankColumn]
-    [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     [MemoryDiagnoser]
-    public class NameParserBenchmark
+    public class SpanParserBenchmark
     {
-        private const string FullName = "Steve J Gordon";
+        private const string FullName = "FirstName ModdleName LastName";
 
         [Benchmark(Baseline = true)]
         public void GetLastName()
