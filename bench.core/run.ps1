@@ -2,4 +2,4 @@
 
 $currentPath = $PSScriptRoot;
 Set-Location -Path $currentPath
-dotnet run --configuration Release NameParserBenchmark
+dotnet run -c Release --no-build
