@@ -225,3 +225,16 @@ project.lock.json
 #####
 # End of core ignore list, below put you custom 'per project' settings (patterns or path)
 #####
+
+BenchmarkDotNet.Artifacts/
+obj/*
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.code-workspace
+.ionide/
+# Local History for Visual Studio Code
+.history/
