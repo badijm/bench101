@@ -2,4 +2,6 @@
 
 $currentPath = $PSScriptRoot;
 Set-Location -Path $currentPath
-dotnet run -c Release --no-build
+#binaries - up to date
+dotnet build -c Release 
+dotnet run -c Release --no-build BranchBenchmark

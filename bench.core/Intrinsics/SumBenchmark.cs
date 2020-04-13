@@ -4,13 +4,9 @@ using System.Numerics;
 using System.Runtime.Intrinsics;
 using System.Runtime.Intrinsics.X86;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Jobs;
-using BenchmarkDotNet.Order;
 namespace bench.core.Intrinsics
 {
     [RankColumn]
-    [SimpleJob(RuntimeMoniker.NetCoreApp31)]
-    [Orderer(SummaryOrderPolicy.FastestToSlowest)]
     public class SumBenchmark
     {
         public static int[] Data = GetRandomArray();

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 
 namespace bench.core
 {
     [RankColumn] 
-    [SimpleJob]
     public class LocalityBenchmark
     {
 
