@@ -1,7 +1,7 @@
-﻿using BenchmarkDotNet.Running;
-using System;
+﻿using System;
 using System.Linq;
 using System.Reflection;
+using BenchmarkDotNet.Running;
 
 namespace bench.core
 {
@@ -14,10 +14,6 @@ namespace bench.core
             BenchmarkRunner.Run(toRun);
         }
 
-        private static Type ParseArgs(string[] args)
-        {
-            var availableBenchmarks = Assembly.GetExecutingAssembly().GetExportedTypes().Where(x => x.Name.EndsWith("Benchmark"));
-            return args == null || !args.Any() ? null : availableBenchmarks.FirstOrDefault(x => x.Name == args[0]);
-        }
+        private static Type ParseArgs(string[] args) => args == null || !args.Any() ? null : Assembly.GetExecutingAssembly().GetExportedTypes().Where(x => x.Name.EndsWith("Benchmark")).FirstOrDefault(x => x.Name == args[0]);
     }
 }

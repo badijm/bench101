@@ -1,5 +1,5 @@
-﻿using BenchmarkDotNet.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using BenchmarkDotNet.Attributes;
 
 namespace bench.core
 {
@@ -7,11 +7,11 @@ namespace bench.core
     [RankColumn]
     public class LoopUnrollingBenchmark
     {
-        [Params(100, 1000, 10_000)]
+        [Params(100, 1000/*, 10_000*/)]
         public static int size;
 
         [ParamsSource(nameof(ValuesForArray))]
-        public int[,] array2D;
+        public double[] array1D;
 
         public static IEnumerable<int[,]> ValuesForArray()
         {
@@ -19,35 +19,20 @@ namespace bench.core
         }
 
         [Benchmark(Baseline = true)]
-        public void NormalLoop()
+        public double NormalLoop()
         {
-            for (int x = 0; x < size; x++)
-            {
-                for (int y = 0; y < size; y++)
-                {
-                    ProcessArray(array2D, x, y);
-                }
-            }
+            double sum = 0;
+            for (int i = 0; i < size; i++)
+                sum += array1D[i];
+            return sum;
         }
 
         [Benchmark]
         public void UnrolledLoop()
         {
-            for (int x = 0; x < size; x += 4)
-            {
-                for (int y = 0; y < size; y += 4)
-                {
-                    ProcessArray(array2D, x, y);
-                    ProcessArray(array2D, x + 1, y + 1);
-                    ProcessArray(array2D, x + 2, y + 2);
-                    ProcessArray(array2D, x + 3, y + 3);
-                }
-            }
-        }
-
-        private void ProcessArray(int[,] array, int x, int y)
-        {
-            array[x, y] = x * y;
+            double sum = 0;
+            for (int i = 0; i < size; i += 4)
+                sum += array1D[i] + array1D[i + 1] + array1D[i + 2] + array1D[i + 3];
         }
     }
 }

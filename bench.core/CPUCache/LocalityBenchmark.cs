@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using BenchmarkDotNet.Attributes;
 
-namespace bench.core
+namespace bench.core.CPUCache
 {
-    [RankColumn] 
+    [RankColumn]
     public class LocalityBenchmark
     {
 
