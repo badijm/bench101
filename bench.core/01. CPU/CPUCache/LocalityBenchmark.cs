@@ -17,21 +17,25 @@ namespace bench.core.CPUCache
         {
             yield return new int[size, size];
         }
-
         [Benchmark(Baseline = true)]
-        public void RowTraversal()
+        public int RowTraversal()
         {
+            var sum = 0;
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    array2D[x, y] = x * y;
+                    sum += array2D[x, y];
+            return sum;
         }
 
         [Benchmark]
-        public void ColumnTraversal()
+        public int ColumnTraversal()
         {
+            var sum = 0;
             for (int x = 0; x < size; x++)
                 for (int y = 0; y < size; y++)
-                    array2D[y, x] = x * y;
+                    sum += array2D[y, x];
+            return sum;
+
         }
     }
 }

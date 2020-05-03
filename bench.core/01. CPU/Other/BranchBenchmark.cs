@@ -26,6 +26,7 @@ namespace bench.core.Other
                     counter++;
             return counter;
         }
+
         [Benchmark]
         public int UnsortedBranch()
         {

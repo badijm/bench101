@@ -13,9 +13,9 @@ namespace bench.core
         [ParamsSource(nameof(ValuesForArray))]
         public double[] array1D;
 
-        public static IEnumerable<int[,]> ValuesForArray()
+        public static IEnumerable<double[]> ValuesForArray()
         {
-            yield return new int[size, size];
+            yield return new double[size];
         }
 
         [Benchmark(Baseline = true)]

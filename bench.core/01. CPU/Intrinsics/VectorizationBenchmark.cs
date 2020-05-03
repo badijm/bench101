@@ -1,13 +1,14 @@
-﻿using BenchmarkDotNet.Attributes;
-using System.Numerics;
+﻿using System.Numerics;
 using System.Runtime.CompilerServices;
+using BenchmarkDotNet.Attributes;
 
 namespace bench.core.Intrinsics
 {
     //https://github.com/EgorBo/IntrinsicsPlayground
     [RankColumn]
-    [LegacyJitX86Job]
-    [RyuJitX64Job]
+    [CoreJob]
+    [ClrJob]
+    [DisassemblyDiagnoser(exportCombinedDisassemblyReport: true)]
     public class VectorizationBenchmark
     {
         private Vector4 vectorA, vectorB, vectorC = default;
@@ -18,9 +19,9 @@ namespace bench.core.Intrinsics
         [Benchmark]
         public void SystemMul() => vectorC = vectorA * vectorB;
 
-        [Benchmark]
+        //[Benchmark]
         public void CustomAdd() => myVectorC = myVectorA + myVectorB;
-        [Benchmark]
+        //[Benchmark]
         public void SystemAdd() => vectorC = vectorA + vectorB;
 
     }

@@ -3,6 +3,7 @@
 namespace bench.core
 {
     //VirtualSum can’t be inlined because it’s marked as a virtual method
+    [DisassemblyDiagnoser(printSource: true, exportCombinedDisassemblyReport:true, exportDiff: true)]
     public class MethodInliningBenchmark
     {
         private const int N = 1000;

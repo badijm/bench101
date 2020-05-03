@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Maksym.Badiy\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj": {}
+    "C:\\Users\\mbadii001\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Maksym.Badiy\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj": {
+    "C:\\Users\\mbadii001\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Maksym.Badiy\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj",
+        "projectUniqueName": "C:\\Users\\mbadii001\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj",
         "projectName": "bench.core",
-        "projectPath": "C:\\Users\\Maksym.Badiy\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj",
-        "packagesPath": "C:\\Users\\Maksym.Badiy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Maksym.Badiy\\Source\\Repos\\bench101\\bench.core\\obj\\",
+        "projectPath": "C:\\Users\\mbadii001\\Source\\Repos\\bench101\\bench.core\\bench.core.csproj",
+        "packagesPath": "C:\\Users\\mbadii001\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mbadii001\\Source\\Repos\\bench101\\bench.core\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Maksym.Badiy\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mbadii001\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -43,7 +43,7 @@
           "dependencies": {
             "BenchmarkDotNet": {
               "target": "Package",
-              "version": "[0.12.0, )"
+              "version": "[0.12.1, )"
             },
             "System.Numerics.Vectors": {
               "target": "Package",
@@ -65,7 +65,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
