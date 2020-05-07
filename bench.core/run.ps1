@@ -3,5 +3,5 @@
 $currentPath = $PSScriptRoot;
 Set-Location -Path $currentPath
 dotnet clean
-dotnet build -c Release 
-dotnet run -c Release --no-build --no-restore VectorizationBenchmark
+dotnet build -c Release --framework netcoreapp3.1
+dotnet run -c Release --no-build --no-restore --framework netcoreapp3.1 VectorizationBenchmark 
