@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>netcoreapp3.1;net472</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <LangVersion>8.0</LangVersion>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -10,6 +10,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="packages\**" />
+    <EmbeddedResource Remove="packages\**" />
+    <None Remove="packages\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.12.1" />
