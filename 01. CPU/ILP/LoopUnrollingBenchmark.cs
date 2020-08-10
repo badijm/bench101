@@ -4,10 +4,11 @@ using BenchmarkDotNet.Attributes;
 namespace bench.core
 {
     //https://en.wikipedia.org/wiki/Loop_unrolling
-    [RankColumn]
+    [DisassemblyDiagnoser(exportCombinedDisassemblyReport:true)]
+    [ShortRunJob]
     public class LoopUnrollingBenchmark
     {
-        [Params(100, 1000/*, 10_000*/)]
+        [Params(100, 200/*, 10_000*/)]
         public static int size;
 
         [ParamsSource(nameof(ValuesForArray))]

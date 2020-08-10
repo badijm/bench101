@@ -6,7 +6,10 @@ using System.Runtime.Intrinsics.X86;
 using BenchmarkDotNet.Attributes;
 namespace bench.core.Intrinsics
 {
+    ///https://devblogs.microsoft.com/dotnet/hardware-intrinsics-in-net-core/
     [RankColumn]
+    [DisassemblyDiagnoser(exportCombinedDisassemblyReport:true)]
+    [ShortRunJob]
     public class SumBenchmark
     {
         public static int[] Data = GetRandomArray();

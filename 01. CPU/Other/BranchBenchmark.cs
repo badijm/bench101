@@ -3,6 +3,8 @@ using BenchmarkDotNet.Attributes;
 
 namespace bench.core.Other
 {
+    [DisassemblyDiagnoser(exportCombinedDisassemblyReport: true)]
+    [ShortRunJob]
     public class BranchBenchmark
     {
         private const int n = 100000;

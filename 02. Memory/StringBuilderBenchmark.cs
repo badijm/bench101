@@ -5,7 +5,7 @@ using BenchmarkDotNet.Attributes;
 namespace bench.core.StringConcat
 {
     [MemoryDiagnoser]
-    public class BuilderBenchmark
+    public class StringBuilderBenchmark
     {
         [Params(10, 100, 1000)]
         public int Count { get; set; }
