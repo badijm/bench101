@@ -1,4 +1,6 @@
 
+![.NET](https://github.com/badijm/bench101/workflows/.NET/badge.svg?branch=master)
+
 Repo containing CPU & memory benchmarks made w/ https://github.com/dotnet/BenchmarkDotNet
 
 ``` ini
